@@ -19,9 +19,10 @@ let squareGridChildsOpacity,stopSquareGridChildsOpacity,squareGridOpacity,stopSq
 let erasePenColorFN;
 
 //other data types
-let boolTrackMouseMvt,boolOpacity,gridRwsCls,loop,penColor,dynamicColor,blackOpacity,backgroundColor;
-boolOpacity = false;
+let boolTrackMouseMvt,buttonSketchBool,shadeButtonBool,gridRwsCls,loop,penColor,dynamicColor,blackOpacity,backgroundColor;
+buttonSketchBool = false;
 boolTrackMouseMvt = false;
+shadeButtonBool = false;
 gridRwsCls = 16;
 dynamicColor = '#1dad00';
 skecthPenColor.value = dynamicColor;
@@ -38,7 +39,8 @@ function stopUserChooseGridRwsCls() {
 }
 
 const startUserChooseGridRwsCls = () => {
-    boolOpacity = false;
+    shadeButtonBool = false;
+    buttonSketchBool = false;
     document.addEventListener('mousemove', userChooseGridRwsCls);
     boolTrackMouseMvt = true;
     document.addEventListener('mouseup', stopUserChooseGridRwsCls);
@@ -99,7 +101,8 @@ setGridRwsCls = () => {
 }
 
 startSetPenColor = () => {
-    boolOpacity = false;
+    shadeButtonBool = false;
+    buttonSketchBool = false;
     document.addEventListener('click',setPenColor);
 }
 
@@ -114,30 +117,29 @@ setPenColor = () => {
 startPenDrawing = () => {
     document.removeEventListener('click',setPenColor);
     skecthContainer.removeEventListener('click',penDrawingSquares);
-    if(!boolOpacity) {
+    if(!buttonSketchBool) {
         console.log('in else');
         squareGridChilds.forEach(squareGridChild => {
             squareGridChild.style.pointerEvents = 'none';
-            squareGridChild.removeEventListener('click',increaseOpacityFN);
-            squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
-            squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
-            squareGridChild.removeEventListener('mouseEnter',decreaseSquareGridChildOpacity);
+            // squareGridChild.removeEventListener('click',increaseOpacityFN);
+            // squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
+            // squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
+            // squareGridChild.removeEventListener('mouseEnter',decreaseSquareGridChildOpacity);
             
         });
         dynamicColor = skecthPenColor.value;
         squareGrids = skecthContainer.querySelectorAll('.gridSquareClass');
         squareGrids.forEach(squareGrid => {
             squareGrid.addEventListener('mouseenter',penDrawingSquares);
-
             squareGrid.removeEventListener('click',penDrawingSquares);
-            squareGrid.removeEventListener('click',decreaseSquareGridOpacity);
+            // squareGrid.removeEventListener('click',decreaseSquareGridOpacity);
             
         })
     }
 }
 
 stopPenDrawing = () => {
-    if (!boolOpacity) {
+    if (!buttonSketchBool) {
         squareGrids.forEach(squareGrid => {
             squareGrid.removeEventListener('mouseenter',penDrawingSquares);
             squareGrid.addEventListener('click',penDrawingSquares);
@@ -146,8 +148,8 @@ stopPenDrawing = () => {
 }
 
 penDrawingSquares = (squareGrid) => {
-    if (!boolOpacity) {
-        console.log('in pen ...',boolOpacity);
+    if (!buttonSketchBool) {
+        console.log('in pen ...',buttonSketchBool);
         squareGridChilds.forEach (squareGridChild => {
         squareGridChild.style.pointerEvents = 'none';
     })
@@ -157,7 +159,8 @@ penDrawingSquares = (squareGrid) => {
 }
 
 sketchBackGroundColorFN = () => {
-    boolOpacity = false;
+    shadeButtonBool = false;
+    buttonSketchBool = false;
     document.addEventListener('click',setSketchBackGroundColor);
 }
 setSketchBackGroundColor = () => {
@@ -183,46 +186,50 @@ checkColorBrightness = (colorHex) => {
 }
 
 increaseOpacityFN = (squareGridChild) => { 
+    if (shadeButtonBool === true && buttonSketchBool === true) {
     let opacity = parseFloat(squareGridChild.target.style.opacity);
     opacity = opacity + 0.1;
     if (opacity <= 1) {
         squareGridChild.target.style.opacity = opacity;
     }
     console.log(squareGridChild.target.style.opacity);
+    }
 }
-
 squareGridChildsOpacity = () => {
     // squareGrids.forEach(squareGrid => {
     //     squareGrid.removeEventListener('mouseenter',penDrawingSquares);
     //     squareGrid.removeEventListener('click',penDrawingSquares);
     //     squareGrid.removeEventListener('click',decreaseSquareGridOpacity);
     // })
-    squareGridChilds.forEach(squareGridChild => {
+    if (shadeButtonBool === true && buttonSketchBool === true) {
+        squareGridChilds.forEach(squareGridChild => {
         squareGridChild.addEventListener('mouseenter',increaseOpacityFN);
-        squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
-        squareGridChild.removeEventListener('mouseEnter',decreaseSquareGridChildOpacity);
         squareGridChild.removeEventListener('click',increaseOpacityFN);
-    })
+        // squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
+        // squareGridChild.removeEventListener('mouseEnter',decreaseSquareGridChildOpacity);
+        })
+    }
 }
-
 stopSquareGridChildsOpacity = () => {
     // squareGrids.forEach(squareGrid => {
     //     squareGrid.removeEventListener('mouseenter',penDrawingSquares);
     //     squareGrid.removeEventListener('click',penDrawingSquares);
     //     squareGrid.removeEventListener('click',decreaseSquareGridOpacity);
     // })
-    squareGridChilds.forEach(squareGridChild => {
-        squareGridChild.addEventListener('click',increaseOpacityFN);
-        squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
-        squareGridChild.removeEventListener('mouseEnter',decreaseSquareGridChildOpacity);
-        squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
-    })
+    if (shadeButtonBool === true && buttonSketchBool === true) {
+        squareGridChilds.forEach(squareGridChild => {
+            squareGridChild.addEventListener('click',increaseOpacityFN);
+            squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
+        // squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
+        // squareGridChild.removeEventListener('mouseEnter',decreaseSquareGridChildOpacity);
+        })
+    }
 }
 
-
 sketchBoolTrueToIncreaseOpacity = () => {
-    boolOpacity = true;
-    //if (boolOpacity) {
+    buttonSketchBool = true;
+    shadeButtonBool = true;
+    //if (buttonSketchBool) {
         squareGridChilds = document.querySelectorAll('.squareGridChild');
         squareGridChilds.forEach(squareGridChild => {
             squareGridChild.style.pointerEvents = 'auto';
@@ -235,12 +242,13 @@ sketchBoolTrueToIncreaseOpacity = () => {
 
 
 sketchBoolTrueToDecreaseOpacity = () => {
-    boolOpacity = true;
+    shadeButtonBool = false;
+    buttonSketchBool = true;
     squareGridChilds = document.querySelectorAll('.squareGridChild');
-    squareGrids.forEach(squareGrid => {
-        squareGrid.removeEventListener('mouseenter',penDrawingSquares);
-        squareGrid.removeEventListener('click',penDrawingSquares);
-    })
+    // squareGrids.forEach(squareGrid => {
+    //     squareGrid.removeEventListener('mouseenter',penDrawingSquares);
+    //     squareGrid.removeEventListener('click',penDrawingSquares);
+    // })
     // squareGridChilds.forEach(squareGridChild => {
 
     // })
@@ -253,32 +261,38 @@ sketchBoolTrueToDecreaseOpacity = () => {
 
 
 squareGridOpacity = () => {
-    squareGridChilds.forEach(squareGridChild => {
-        squareGridChild.addEventListener('mouseenter',decreaseSquareGridChildOpacity);
-        squareGridChild.removeEventListener('click',increaseOpacityFN);
-        squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
-        squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
-    })
+    if (buttonSketchBool === true && shadeButtonBool === false) {
+        squareGridChilds.forEach(squareGridChild => {
+            squareGridChild.addEventListener('mouseenter',decreaseSquareGridChildOpacity);
+            //squareGridChild.removeEventListener('click',increaseOpacityFN);
+            //squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
+            squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
+        })
+    }
 }
 
 stopSquareGridOpacity = () => {
-    squareGridChilds.forEach(squareGridChild => {
-        squareGridChild.addEventListener('click',decreaseSquareGridChildOpacity);
-        squareGridChild.removeEventListener('mouseenter',decreaseSquareGridChildOpacity);
-        squareGridChild.removeEventListener('click',increaseOpacityFN);
-        squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
-    })
+    if (buttonSketchBool === true && shadeButtonBool === false) {
+        squareGridChilds.forEach(squareGridChild => {
+            squareGridChild.addEventListener('click',decreaseSquareGridChildOpacity);
+            squareGridChild.removeEventListener('mouseenter',decreaseSquareGridChildOpacity);
+            squareGridChild.removeEventListener('click',increaseOpacityFN);
+            squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
+        })
+    }
 }
 
 decreaseSquareGridChildOpacity = (squareGridChild) => {
-    let opacity;
-    console.log('substrating 2'+squareGridChild.target.style.opacity);
-    if (squareGridChild.target.style.opacity > 0) {
-        opacity = parseFloat(squareGridChild.target.style.opacity);
-        console.log('substrating'+opacity);
-        opacity -= 0.1;
-        squareGridChild.target.style.opacity = opacity;
-        console.log(squareGridChild.target.style.opacity);
+    if (buttonSketchBool === true && shadeButtonBool === false) {
+        let opacity;
+        console.log('substrating 2'+squareGridChild.target.style.opacity);
+        if (squareGridChild.target.style.opacity > 0) {
+            opacity = parseFloat(squareGridChild.target.style.opacity);
+            console.log('substrating'+opacity);
+            opacity -= 0.1;
+            squareGridChild.target.style.opacity = opacity;
+            console.log(squareGridChild.target.style.opacity);
+        }
     }
 }
 
