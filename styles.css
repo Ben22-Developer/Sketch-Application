@@ -1,0 +1,193 @@
+
+#try {
+    height:10rem;
+    width: 10rem;
+    position: absolute;
+    top:10rem;
+    left:25rem;
+    background-color: #14ef17;
+}
+#inTry {
+    height: 100%;
+    width:100%;
+    top:0;
+    left:0;
+    background-color: rgba(0, 0, 0);
+    opacity: 0.1;
+}
+
+
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    user-select: none;
+}
+body {
+    background-color: rgb(28, 28, 69);
+    color: aliceblue;
+}
+li {
+    list-style: none;
+}
+button:hover {
+    cursor: pointer;
+    background-color: rgb(157, 157, 157);
+    color: aliceblue;
+}
+button:active {
+    background-color: white;
+    color: black;
+}
+header {
+    text-align: center;
+    padding:2rem 0;
+}
+#sketching-section {
+    display: flex;
+    gap:1rem;
+}
+/*Container Div*/
+#skecth-container-functionalities {
+    flex-shrink: 0;
+    border-right: .2rem solid;
+    width: max-content;
+    padding:1rem 2rem 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap:1.5rem;
+
+   /*ul for color inputs*/ 
+   #user-choice-color {
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+        li {
+            display: flex;
+            flex-direction: column;
+            gap:1rem;
+            label {
+                font-size: 1.2rem;
+                text-decoration: underline;
+                font-weight: bold;
+            }
+            input {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+/*ul for buttons*/
+#sketch-buttons-modification {
+    margin: 1rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    li {
+        button {
+        width: 100%;
+        padding:.7rem 0;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        }
+    }
+}
+
+/*user grid lines size choice*/
+article {
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    p:first-of-type {
+        border: .1rem solid;
+        padding:.5rem 2rem;
+    }
+    #square-grids-user-choice {
+    margin: 1.2rem 0 0 0;
+    width:100%;   
+    height:.2rem;
+    background-color: aliceblue;
+    position: relative;
+    #circle-to-grab {
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: aliceblue;
+        border-radius: 50%;
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translateY(-50%) translateX(-50%);
+        pointer-events: all !important;
+    }
+    #circle-to-grab:hover {
+        background-color: rgb(157, 157, 157);
+    }
+    }
+    #display-square-grids {
+        text-align: center;
+    }
+}
+/*The skecth*/
+#skecth-container {
+    width: 32rem;   /*16rem*2*/
+    height: 32rem;
+    background-color: aliceblue;
+    margin: 0 1rem 0 0;
+    flex-grow: 1;
+    flex-shrink: 0;
+    display: grid;
+    .gridSquareClass{ 
+        width:100%;
+        border: 1px solid black;
+        pointer-events: auto;
+    }
+}
+footer {
+    padding:2rem 0;
+    border: .2rem solid;
+    text-align: center;
+}
+@media (width < 880px) {
+    #sketching-section {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    #skecth-container {
+     width: 100% !important;   
+    }
+    #skecth-container-functionalities {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border: none;
+    }
+    #sketch-buttons-modification {
+        flex-grow: 5;
+        flex-shrink: 0;
+    }
+    #user-choice-color {
+        flex-grow: 1;
+    }
+    article {
+        flex-grow: 2;
+        p:first-of-type {
+            padding:.5rem;
+        }
+    }
+}
+@media (width < 780px) and (width >= 480px) {
+    html {
+        font-size: 14px;
+    }
+}
+@media (width < 480px) {
+    html {
+        font-size: 10px;
+    }
+}

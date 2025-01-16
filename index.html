@@ -3,9 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SKETCH | WEB | APP</title>
+    <link rel="icon" type="JPG" href="images/icon.jpg">
+    <link rel="stylesheet" href="styles.css"> 
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <input type="color">
+    <main>
+      <!--  <div id="try">
+            <div id="inTry"></div>
+        </div> -->
+        <header>
+            <h1>SKETCHING APPLICATION</h1>
+        </header>
+        <section id="sketching-section">
+            <div id="skecth-container-functionalities">
+                <ul id="user-choice-color">
+                    <li>
+                        <label for="mouse-drawing-color">Drawing Pen Color</label>
+                        <input type="color" id="mouse-drawing-color">
+                    </li>
+                    <li>
+                        <label for="background-color">Sketch Background Color</label>
+                        <input type="color" id="background-color"> 
+                    </li>
+                </ul>
+                <ul id="sketch-buttons-modification">
+                    <li>
+                        <button id="increase-opacity">Grids Shade</button>
+                    </li>
+                    <li>
+                        <button id="decrease-opacity">Grids Opacity Decrease</button>
+                    </li>
+                    <li>
+                        <button id="erase-pen-color">Erase Pen Color</button>
+                    </li>
+                    <li>
+                        <button id="reset-sketch">Reset Sketch</button>
+                    </li>
+                </ul>
+                <article>
+                    <p>Choose your grid size</p>
+                    <div id="square-grids-user-choice">
+                        <div id="circle-to-grab"></div>
+                    </div>
+                    <p id="display-square-grids"><span>16</span> &times; <span>16</span></p>
+                </article>
+            </div>
+            <div id="skecth-container"></div>
+        </section>
+        <footer>
+            &copy; BEN-22 DEVELOPER
+        </footer>
+    </main>
 </body>
 </html>
