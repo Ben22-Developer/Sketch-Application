@@ -18,6 +18,10 @@ button:hover {
     background-color: #00007d;
     color: #f0f8ff;
 }
+button:active {
+    background-color: #5252f5;
+    color: #f0f8ff;
+}
 header {
     text-align: center;
     padding:2rem 0;
@@ -140,6 +144,34 @@ footer {
     text-align: center;
 }
 
+/*Pop Up*/
+ #pop-up-message {
+    visibility: hidden;
+    background-color: rgb(126, 56, 3);
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    width:50%;
+    position: absolute;
+    top:0;
+    left:50%;
+    padding: 1rem;
+    transform: translateX(-50%);
+ }
+ #pop-up-message-btn {
+    margin: 1rem 0 0 0;
+    padding: .5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+ }
+
+@media (width < 1024px) {
+    #pop-up-message {
+        visibility: visible;
+    }
+}
+
 @media (width < 880px) {
     #sketching-section {
         display: flex;
@@ -147,7 +179,8 @@ footer {
         align-items: center;
     }
     #skecth-container {
-     width: 100% !important;   
+        margin: auto;
+        width: 100% !important;   
     }
     #skecth-container-functionalities {
         width: 100%;

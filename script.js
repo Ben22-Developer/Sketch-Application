@@ -14,6 +14,8 @@ const erasePenColor = document.getElementById('erase-pen-color');
 const resetSketch = document.getElementById('reset-sketch');
 const footer = document.querySelector('footer');
 const header = document.querySelector('header');
+const popMsgBtn = document.getElementById('pop-up-message-btn');
+const popMsg = document.getElementById('pop-up-message');
 let squareGrids,squareGridChilds;
 
 //All functions declarations
@@ -380,15 +382,16 @@ header.addEventListener('click', () => {
     buttonColorReset();
 })
 
+//Pop Msg for small screen
+popMsgBtn.addEventListener('click', () => {
+    popMsg.style.visibility = 'hidden';
+})
 
 //functions which are called when program runs at that time 
 setGridRwsCls();
 squareGrids = skecthContainer.querySelectorAll('.gridSquareClass');
 squareGridChilds = document.querySelectorAll('.squareGridChild');
 linePassThroughBG.style.width = `${50}%`;
-if (document.querySelector('body').offsetWidth < `${2024}`) {
-    alert("Hi 👋👋 Welcome!\nThis application is more flexible on computer devices because it relies on using mouse events like clicks to function better");
-}
 
 //Global Listeners
 resetSketch.addEventListener('click',resetSketchFN);
