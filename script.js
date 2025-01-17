@@ -35,6 +35,7 @@ backgroundColor = '#bfbfbf';
 sketchBackgroundColorDOM.value = backgroundColor;
 skecthContainer.style.backgroundColor = backgroundColor;
 
+//Functions to set the grid squares of a sketch
 function stopUserChooseGridRwsCls() {
     document.removeEventListener('mousemove', userChooseGridRwsCls);
     if (boolTrackMouseMvt) {
@@ -104,6 +105,7 @@ setGridRwsCls = () => {
     }
 }
 
+//Functions to select the color of the drawing pen
 startSetPenColor = () => {
     buttonSketchBool = false;
     shadeSketchButtonBool = null;
@@ -116,22 +118,17 @@ setPenColor = () => {
     squareGridChilds.forEach(squareGridChild => {
         squareGridChild.style.pointerEvents = 'none';
     })
-    skecthContainer.addEventListener('click',penDrawingSquares);
-    //console.log('in setPenColor Fn');    
+    skecthContainer.addEventListener('click',penDrawingSquares);  
 }
 
+//Functions to draw sth in the sketch
 startPenDrawing = () => {
     buttonColorReset();
     document.removeEventListener('click',setPenColor);
     skecthContainer.removeEventListener('click',penDrawingSquares);
     if(!buttonSketchBool) {
-        console.log('in else');
         squareGridChilds.forEach(squareGridChild => {
             squareGridChild.style.pointerEvents = 'none';
-            // squareGridChild.removeEventListener('click',increaseOpacityFN);
-            // squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
-            // squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
-            // squareGridChild.removeEventListener('mouseEnter',decreaseSquareGridChildOpacity);
             
         });
         dynamicColor = skecthPenColor.value;
@@ -139,8 +136,6 @@ startPenDrawing = () => {
         squareGrids.forEach(squareGrid => {
             squareGrid.addEventListener('mouseenter',penDrawingSquares);
             squareGrid.removeEventListener('click',penDrawingSquares);
-            // squareGrid.removeEventListener('click',decreaseSquareGridOpacity);
-            
         })
     }
 }
@@ -156,7 +151,6 @@ stopPenDrawing = () => {
 
 penDrawingSquares = (squareGrid) => {
     if (!buttonSketchBool) {
-        console.log('in pen ...',buttonSketchBool);
         squareGridChilds.forEach (squareGridChild => {
         squareGridChild.style.pointerEvents = 'none';
     })
@@ -165,6 +159,7 @@ penDrawingSquares = (squareGrid) => {
     }
 }
 
+//Functions to set the sketch background
 sketchBackGroundColorFN = () => {
     buttonColorReset();
     buttonSketchBool = false;
@@ -172,6 +167,7 @@ sketchBackGroundColorFN = () => {
     eraseOrResetSketchBool = null;
     document.addEventListener('click',setSketchBackGroundColor);
 }
+
 setSketchBackGroundColor = () => {
     skecthContainer.style.backgroundColor = sketchBackgroundColorDOM.value;
     squareGrids = skecthContainer.querySelectorAll('.gridSquareClass');
@@ -187,6 +183,7 @@ setSketchBackGroundColor = () => {
         })
     }
 }
+
 checkColorBrightness = (colorHex) => {
     const red = parseInt(colorHex.substring(1,3),16);
     const green = parseInt(colorHex.substring(3,5),16);
@@ -194,6 +191,7 @@ checkColorBrightness = (colorHex) => {
     return (red * 0.299) + (green * 0.587) + (blue * 0.144);
 }
 
+//Functions to increase the opacity of the sketch
 increaseOpacityFN = (squareGridChild) => { 
     if (shadeSketchButtonBool === true && buttonSketchBool === true) {
         let opacity = parseFloat(squareGridChild.target.style.opacity);
@@ -201,36 +199,21 @@ increaseOpacityFN = (squareGridChild) => {
     if (opacity <= 1) {
         squareGridChild.target.style.opacity = opacity;
     }
-    console.log(squareGridChild.target.style.opacity);
     }
 }
 squareGridChildsOpacity = () => {
-    // squareGrids.forEach(squareGrid => {
-    //     squareGrid.removeEventListener('mouseenter',penDrawingSquares);
-    //     squareGrid.removeEventListener('click',penDrawingSquares);
-    //     squareGrid.removeEventListener('click',decreaseSquareGridOpacity);
-    // })
     if (shadeSketchButtonBool === true && buttonSketchBool === true) {
         squareGridChilds.forEach(squareGridChild => {
         squareGridChild.addEventListener('mouseenter',increaseOpacityFN);
         squareGridChild.removeEventListener('click',increaseOpacityFN);
-        // squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
-        // squareGridChild.removeEventListener('mouseEnter',decreaseSquareGridChildOpacity);
         })
     }
 }
 stopSquareGridChildsOpacity = () => {
-    // squareGrids.forEach(squareGrid => {
-    //     squareGrid.removeEventListener('mouseenter',penDrawingSquares);
-    //     squareGrid.removeEventListener('click',penDrawingSquares);
-    //     squareGrid.removeEventListener('click',decreaseSquareGridOpacity);
-    // })
     if (shadeSketchButtonBool === true && buttonSketchBool === true) {
         squareGridChilds.forEach(squareGridChild => {
             squareGridChild.addEventListener('click',increaseOpacityFN);
             squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
-        // squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
-        // squareGridChild.removeEventListener('mouseEnter',decreaseSquareGridChildOpacity);
         })
     }
 }
@@ -247,16 +230,15 @@ sketchBoolTrueToIncreaseOpacity = () => {
     resetSketch.style.color = '';
     decreaseOpacity.style.backgroundColor = '';
     decreaseOpacity.style.color = '';
-    //if (buttonSketchBool) {
-        squareGridChilds = document.querySelectorAll('.squareGridChild');
-        squareGridChilds.forEach(squareGridChild => {
-            squareGridChild.style.pointerEvents = 'auto';
-        })
-        skecthContainer.addEventListener('mousedown',squareGridChildsOpacity);
-        skecthContainer.addEventListener('mouseup',stopSquareGridChildsOpacity);
-    //}
+    squareGridChilds = document.querySelectorAll('.squareGridChild');
+    squareGridChilds.forEach(squareGridChild => {
+        squareGridChild.style.pointerEvents = 'auto';
+    })
+    skecthContainer.addEventListener('mousedown',squareGridChildsOpacity);
+    skecthContainer.addEventListener('mouseup',stopSquareGridChildsOpacity);
 }
 
+//Functions to decrease the opacity of the sketch
 sketchBoolTrueToDecreaseOpacity = () => {
     buttonSketchBool = true;
     shadeSketchButtonBool = false;
@@ -270,13 +252,6 @@ sketchBoolTrueToDecreaseOpacity = () => {
     resetSketch.style.backgroundColor = '';
     resetSketch.style.color = '';
     squareGridChilds = document.querySelectorAll('.squareGridChild');
-    // squareGrids.forEach(squareGrid => {
-    //     squareGrid.removeEventListener('mouseenter',penDrawingSquares);
-    //     squareGrid.removeEventListener('click',penDrawingSquares);
-    // })
-    // squareGridChilds.forEach(squareGridChild => {
-
-    // })
     squareGridChilds.forEach(squareGridChild => {
         squareGridChild.style.pointerEvents = 'auto';
     })
@@ -288,8 +263,6 @@ squareGridOpacity = () => {
     if (buttonSketchBool === true && shadeSketchButtonBool === false) {
         squareGridChilds.forEach(squareGridChild => {
             squareGridChild.addEventListener('mouseenter',decreaseSquareGridChildOpacity);
-            //squareGridChild.removeEventListener('click',increaseOpacityFN);
-            //squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
             squareGridChild.removeEventListener('click',decreaseSquareGridChildOpacity);
         })
     }
@@ -300,8 +273,6 @@ stopSquareGridOpacity = () => {
         squareGridChilds.forEach(squareGridChild => {
             squareGridChild.addEventListener('click',decreaseSquareGridChildOpacity);
             squareGridChild.removeEventListener('mouseenter',decreaseSquareGridChildOpacity);
-            //squareGridChild.removeEventListener('click',increaseOpacityFN);
-            //squareGridChild.removeEventListener('mouseenter',increaseOpacityFN);
         })
     }
 }
@@ -309,17 +280,15 @@ stopSquareGridOpacity = () => {
 decreaseSquareGridChildOpacity = (squareGridChild) => {
     if (buttonSketchBool === true && shadeSketchButtonBool === false) {
         let opacity;
-        console.log('substrating 2'+squareGridChild.target.style.opacity);
         if (squareGridChild.target.style.opacity > 0) {
             opacity = parseFloat(squareGridChild.target.style.opacity);
-            console.log('substrating'+opacity);
             opacity -= 0.1;
             squareGridChild.target.style.opacity = opacity;
-            console.log(squareGridChild.target.style.opacity);
         }
     }
 }
 
+//Function to clear pen coloring or drawings
 erasePenColorFN = () => {
     erasePenColor.style.backgroundColor = '#00007d';
     erasePenColor.style.color = '#f0f8ff';
@@ -341,17 +310,6 @@ erasePenColorFN = () => {
 
 eraseSketchFN = () => {
     if (buttonSketchBool === true && eraseOrResetSketchBool === true) {   
-
-
-        // squareGridChilds.forEach(squareGridChild => {
-        //     squareGridChild.style.pointerEvents = 'auto';
-        // }) 
-
-
-        // squareGridChilds.forEach(squareGridChild => {
-        //     squareGridChild.removeEventListener('click',clickEraseSquareGridChildSketch);
-        //     squareGridChild.addEventListener('mouseenter',eraseSquareGridChildSketch);
-        // }) 
         squareGrids.forEach(squareGrid => {
             squareGrid.removeEventListener('click',clickEraseSquareGridSketch);
             squareGrid.addEventListener('mouseenter',eraseSquareGridSketch);
@@ -361,17 +319,6 @@ eraseSketchFN = () => {
 
 opposeEraseSketchFN = () => {
     if (buttonSketchBool === true && eraseOrResetSketchBool === true) { 
-
-
-        // squareGridChilds.forEach(squareGridChild => {
-        //     squareGridChild.style.pointerEvents = 'auto';
-        // }) 
-
-
-        // squareGridChilds.forEach(squareGridChild => {
-        //     squareGridChild.removeEventListener('mouseenter',eraseSquareGridChildSketch);
-        //     squareGridChild.addEventListener('click',clickEraseSquareGridChildSketch);
-        // })
         squareGrids.forEach(squareGrid => {
             squareGrid.addEventListener('click',clickEraseSquareGridSketch);
             squareGrid.removeEventListener('mouseenter',eraseSquareGridSketch);
@@ -388,47 +335,36 @@ clickEraseSquareGridChildSketch = squareGridChild => {
 }
 
 eraseSquareGridChildSketch = squareGridChild => {
-    //console.log('erase');
     if (buttonSketchBool === true && eraseOrResetSketchBool === true) { 
         if (squareGridChild.target.style.opacity !== 0) {
             squareGridChild.target.style.opacity = 0;
         }
-    // squareGridChilds.forEach(squareGridChild => {
-    //     squareGridChild.style.pointerEvents = 'none';
-    // }) 
     }
 }
 
 clickEraseSquareGridSketch = squareGrid => {
     if (buttonSketchBool === true && eraseOrResetSketchBool === true) {
-    // squareGridChilds.forEach(squareGridChild => {
-    // squareGridChild.style.pointerEvents = 'none';
-    // }) 
-    console.log(`in click: color => ${squareGrid.target.style.backgroundColor}\nThe target: ${squareGrid.target.innerHTML}`);
     if (squareGrid.target.style.backgroundColor !== sketchBackgroundColorDOM.value) {
         squareGrid.target.style.backgroundColor = '';
         if (squareGrid.target.children[0].style.opacity !== 0) {
             squareGrid.target.children[0].style.opacity = 0;
+            }
         }
     }
-    }
 }
+
 eraseSquareGridSketch = squareGrid => {
     if (buttonSketchBool === true && eraseOrResetSketchBool === true) {
-
-    // squareGridChilds.forEach(squareGridChild => {
-    //     squareGridChild.style.pointerEvents = 'none';
-    // }) 
-
     if (squareGrid.target.style.backgroundColor !== sketchBackgroundColorDOM.value) {
         squareGrid.target.style.backgroundColor = '';
         if (squareGrid.target.children[0].style.opacity !== 0) {
             squareGrid.target.children[0].style.opacity = 0;
+            }
         }
-    }
     }
 }
 
+//Reset sketch from 0
 resetSketchFN = () => {
     resetSketch.style.backgroundColor = '#00007d';
     resetSketch.style.color = '#f0f8ff';
@@ -442,6 +378,8 @@ resetSketchFN = () => {
     setGridRwsCls();
     sketchBackgroundColorDOM.value = '#bfbfbf';
 }
+
+//buttons color resetting
 buttonColorReset = () => {
     decreaseOpacity.style.backgroundColor = '';
     decreaseOpacity.style.color = '';
@@ -452,37 +390,11 @@ buttonColorReset = () => {
     resetSketch.style.backgroundColor = '';
     resetSketch.style.color = '';
 }
-
-//some anonymous function to reset button BGColor
-// skecthcContainerFunctionalities.addEventListener('click', () => {
-//     decreaseOpacity.style.backgroundColor = '';
-//     decreaseOpacity.style.color = '';
-//     increaseOpacity.style.backgroundColor = '';
-//     increaseOpacity.style.color = '';
-//     erasePenColor.style.backgroundColor = '';
-//     erasePenColor.style.color = '';
-//     resetSketch.style.backgroundColor = '';
-//     resetSketch.style.color = '';
-// })
 footer.addEventListener('click', () => {
-    decreaseOpacity.style.backgroundColor = '';
-    decreaseOpacity.style.color = '';
-    increaseOpacity.style.backgroundColor = '';
-    increaseOpacity.style.color = '';
-    erasePenColor.style.backgroundColor = '';
-    erasePenColor.style.color = '';
-    resetSketch.style.backgroundColor = '';
-    resetSketch.style.color = '';
+    buttonColorReset();
 })
 header.addEventListener('click', () => {
-    decreaseOpacity.style.backgroundColor = '';
-    decreaseOpacity.style.color = '';
-    increaseOpacity.style.backgroundColor = '';
-    increaseOpacity.style.color = '';
-    erasePenColor.style.backgroundColor = '';
-    erasePenColor.style.color = '';
-    resetSketch.style.backgroundColor = '';
-    resetSketch.style.color = '';
+    buttonColorReset();
 })
 
 
@@ -492,6 +404,7 @@ squareGrids = skecthContainer.querySelectorAll('.gridSquareClass');
 squareGridChilds = document.querySelectorAll('.squareGridChild');
 linePassThroughBG.style.width = `${50}%`;
 
+//Global Listeners
 resetSketch.addEventListener('click',resetSketchFN);
 erasePenColor.addEventListener('click',erasePenColorFN);
 decreaseOpacity.addEventListener('click',sketchBoolTrueToDecreaseOpacity);
@@ -499,7 +412,6 @@ increaseOpacity.addEventListener('click',sketchBoolTrueToIncreaseOpacity);
 skecthContainer.addEventListener('mousedown',startPenDrawing);
 skecthContainer.addEventListener('mouseup',stopPenDrawing);
 document.addEventListener('mouseup',stopPenDrawing);
-
 skecthPenColor.addEventListener('click',startSetPenColor);
 gridSelectorCircleButton.addEventListener('mousedown',startUserChooseGridRwsCls);
 sketchBackgroundColorDOM.addEventListener('click',sketchBackGroundColorFN);
