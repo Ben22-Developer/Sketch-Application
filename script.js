@@ -16,13 +16,13 @@ const footer = document.querySelector('footer');
 const header = document.querySelector('header');
 let squareGrids,squareGridChilds;
 
-//functions declarations
+//All functions declarations
 let buttonColorReset,setGridRwsCls,startSetPenColor,setPenColor,startPenDrawing,stopPenDrawing,setPenDrawing,penDrawingSquares,sketchBackGroundColorFN;
 let setSketchBackGroundColor,checkColorBrightness,increaseOpacityFN,decreaseOpacityFN,sketchBoolTrueToDecreaseOpacity,sketchBoolTrueToIncreaseOpacity;
 let squareGridChildsOpacity,stopSquareGridChildsOpacity,squareGridOpacity,stopSquareGridOpacity,decreaseSquareGridChildOpacity,decreaseSquareGridOpacity;
-let erasePenColorFN,eraseSketchFN,opposeEraseSketchFN,eraseSquareGridSketch,eraseSquareGridChildSketch,clickEraseSquareGridChildSketch,clickEraseSquareGridSketch,resetSketchFN;
+let erasePenColorFN,eraseSketchFN,opposeEraseSketchFN,eraseSquareGridSketch,clickEraseSquareGridSketch,resetSketchFN;
 
-//other data types
+//Other data types
 let boolTrackMouseMvt,buttonSketchBool,shadeSketchButtonBool,eraseOrResetSketchBool,gridRwsCls,loop,penColor,dynamicColor,blackOpacity,backgroundColor;
 boolTrackMouseMvt = false; //to track the time at which the user has ended to pick up the color and it's applies changes
 buttonSketchBool = false; //to track the click if on buttons or the inputs clicks
@@ -123,7 +123,6 @@ setPenColor = () => {
 
 //Functions to draw sth in the sketch
 startPenDrawing = () => {
-    buttonColorReset();
     document.removeEventListener('click',setPenColor);
     skecthContainer.removeEventListener('click',penDrawingSquares);
     if(!buttonSketchBool) {
@@ -288,7 +287,7 @@ decreaseSquareGridChildOpacity = (squareGridChild) => {
     }
 }
 
-//Function to clear pen coloring or drawings
+//Functions to clear pen coloring or drawings
 erasePenColorFN = () => {
     erasePenColor.style.backgroundColor = '#00007d';
     erasePenColor.style.color = '#f0f8ff';
@@ -326,22 +325,6 @@ opposeEraseSketchFN = () => {
     }
 }
 
-clickEraseSquareGridChildSketch = squareGridChild => {
-    if (buttonSketchBool === true && eraseOrResetSketchBool === true) { 
-        if (squareGridChild.target.style.opacity !== 0) {
-            squareGridChild.target.style.opacity = 0;
-        }
-    }
-}
-
-eraseSquareGridChildSketch = squareGridChild => {
-    if (buttonSketchBool === true && eraseOrResetSketchBool === true) { 
-        if (squareGridChild.target.style.opacity !== 0) {
-            squareGridChild.target.style.opacity = 0;
-        }
-    }
-}
-
 clickEraseSquareGridSketch = squareGrid => {
     if (buttonSketchBool === true && eraseOrResetSketchBool === true) {
     if (squareGrid.target.style.backgroundColor !== sketchBackgroundColorDOM.value) {
@@ -364,7 +347,7 @@ eraseSquareGridSketch = squareGrid => {
     }
 }
 
-//Reset sketch from 0
+//Function to reset sketch from 0
 resetSketchFN = () => {
     resetSketch.style.backgroundColor = '#00007d';
     resetSketch.style.color = '#f0f8ff';
@@ -379,7 +362,7 @@ resetSketchFN = () => {
     sketchBackgroundColorDOM.value = '#bfbfbf';
 }
 
-//buttons color resetting
+//Buttons color resetting
 buttonColorReset = () => {
     decreaseOpacity.style.backgroundColor = '';
     decreaseOpacity.style.color = '';
@@ -403,6 +386,9 @@ setGridRwsCls();
 squareGrids = skecthContainer.querySelectorAll('.gridSquareClass');
 squareGridChilds = document.querySelectorAll('.squareGridChild');
 linePassThroughBG.style.width = `${50}%`;
+if (document.querySelector('body').offsetWidth < `${2024}`) {
+    alert("Hi 👋👋 Welcome!\nThis application is more flexible on computer devices because it relies on using mouse events like clicks to function better");
+}
 
 //Global Listeners
 resetSketch.addEventListener('click',resetSketchFN);

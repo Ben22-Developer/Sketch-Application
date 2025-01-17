@@ -6,6 +6,7 @@
     user-select: none;
 }
 body {
+    width: 100%;
     background-color: rgb(28, 28, 69);
     color: aliceblue;
 }
@@ -16,11 +17,7 @@ button:hover {
     cursor: pointer;
     background-color: #00007d;
     color: #f0f8ff;
-}/*
-button:active {
-    background-color: white;
-    color: black;
-}*/
+}
 header {
     text-align: center;
     padding:2rem 0;
