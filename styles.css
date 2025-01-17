@@ -166,7 +166,7 @@ footer {
     border: none;
  }
 
-@media (width < 1024px) {
+@media (width <= 1024px) {
     #pop-up-message {
         visibility: visible;
     }
